@@ -1,0 +1,403 @@
+/* ----------------------*/
+/* -------- APP ---------*/
+/* ----------------------*/
+:root {
+    --bg-dark: #012a35;
+    --bg-dark-hover: #003441;
+    --color-logo: rgb(1, 120, 141);
+
+    --logo-height: 100px;
+    --menu-top-height: 50px;
+    --aside-width: 225px;
+    --footer-height: 50px;
+    --shadow: 0px 0px 5px;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Century Gothic';
+    font-size: 15px;
+}
+
+.app {
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 
+        var(--aside-width) 1fr;
+    grid-template-rows: 
+        var(--menu-top-height) 
+        auto
+        1fr 
+        var(--footer-height);
+    grid-template-areas: 
+        "logo menu"
+        "logo header"
+        "content content"
+        "footer footer";
+    height: 100vmin;
+    background-color: #F5F5F5;
+}
+
+aside.logo{
+    grid-area: logo;
+}
+
+header.header{
+    grid-area: header;
+}
+
+header.menu-area{
+    grid-area: menu;
+}
+
+main{
+    grid-area: content;
+}
+
+footer{
+    grid-area: footer; 
+}
+
+@media(max-width: 900px){
+    .app{
+        grid-template-rows:
+            var(--logo-height)
+            auto
+            auto
+            1fr
+            auto;
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "logo"
+            "menu"
+            "header"
+            "content"
+            "footer";
+        background-color: #F5F5F5 ;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ----------------------*/
+/* ------- MENU ---------*/
+/* ----------------------*/
+header.menu-area{
+    background-color: var(--bg-dark) !important;
+    box-shadow: var(--shadow);
+}
+
+.menu a{
+    color: #F5F5F5;
+    padding: 12px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
+}
+.menu a:hover{
+    background-color: var(--bg-dark-hover);
+    color: #F5F5F5;
+}
+
+.menu a:active{
+    color: var(--color-logo);
+}
+
+.menu .icon{
+    display: none;
+}
+
+@media screen and (max-width: 650px) {
+    .menu a {
+        display: none;
+        position: relative;
+    }
+
+    .menu a.icon {
+        color: #F5F5F5;
+        display: block;
+    }
+
+    .menu a:hover {
+        color: #F5F5F5 !important;
+    }
+}
+  
+@media screen and (max-width: 650px) {
+    .menu.responsive {
+        position: relative;
+        display: block !important;
+    }
+    
+    .menu.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .menu.responsive a {
+        color: #F5F5F5 !important;
+        float: none;
+        display: block !important;
+        position: relative;
+        text-align: left;
+    }
+
+    * {
+        font-size: 16px !important;
+    }
+    
+}
+
+/* ----------------------*/
+/* ------- LOGO ---------*/
+/* ----------------------*/
+aside.logo{
+    background-color: var(--bg-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+aside.logo img{
+    padding: 0px 10px;
+    max-width: 100%;
+    max-height: 140px !important;
+}
+
+/* ----------------------*/
+/* ------- HEADER -------*/
+/* ----------------------*/
+
+header{
+    background-color: white !important;
+    box-shadow: var(--shadow);
+}
+
+header h1{
+    font-size: 25px;
+    color: var(--bg-dark);
+    padding: 10px !important; 
+}
+
+header > .row {
+    margin: 0px !important
+}
+
+/* ----------------------*/
+/* ------- FOOTER -------*/
+/* ----------------------*/
+
+footer{
+    padding: 0px 25px;
+    background-color: #FFFFFF;
+    box-shadow: var(--shadow);
+    align-items: center;
+}
+
+footer img{
+    height: 18px;
+    padding: 0px 5px;
+}
+
+footer p {
+    margin: 0px;
+}
+
+/* ----------------------*/
+/* ------- CONTENT ------*/
+/* ----------------------*/
+
+.content {
+    background-color: #FFFFFF;
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.container-fluid {
+    margin: 30px !important;
+}
+
+/* ----------------------*/
+/* ------ REGISTER ------*/
+/* ----------------------*/
+
+.register{
+    padding: 6px 10px;
+}
+
+.nopadding{
+    padding: 0px !important;
+}
+.submit {
+    width: 100px !important;
+}
+
+.form-control-file{
+    width: 100% !important;
+}
+
+#img{
+    max-width: 100%;
+    max-height: 200px;
+}
+
+#labelFotoSelecionada{
+    width: 100%;
+    position: relative;
+}
+
+.btn-primary{
+    background-color: var(--bg-dark);
+    border-color: var(--bg-dark);
+}
+
+.btn-primary:hover{
+    background-color: var(--bg-dark-hover);
+    border-color: var(--bg-dark-hover);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active{
+    background-color: var(--color-logo);
+    border-color: var(--color-logo);
+}
+
+.btn-primary:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/* ----------------------*/
+/* -------- LOGIN -------*/
+/* ----------------------*/
+
+.loginbutton{
+    width: 130px !important;
+    margin-right: 25px;
+    padding: 6px 10px;
+    margin-left: 25px;
+}
+
+.login{
+    width: 250px;
+    padding: 6px 10px;
+    margin-left: 25px;
+}
+
+a{
+    vertical-align: middle;
+}
+
+/* ----------------------*/
+/* ------ NEW USER ------*/
+/* ----------------------*/
+.row, .col-md-12{
+    padding: 6px 10px;
+}
+
+.frm-field{
+    padding-bottom: 20px;
+}
+
+.submit-form{
+    margin: 5px;
+}
+
+.submit {
+    width: 100px !important;
+    margin-top: 10px !important;
+}
+
+/* ----------------------*/
+/* -------- HOME --------*/
+/* ----------------------*/
+.display-4{
+    font-size: 40px;
+    text-align: center;
+}
+
+.corpotexto{
+	font-family: "Century Gothic";
+    font-size: 20px;
+    text-align: justify;
+}
+
+.delegacias{
+    text-align: center;
+    align-items: center;
+}
+
+.delegacias a{
+    font-family: "Century Gothic";
+    font-size: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+select, option{
+    min-width: 50%;
+    padding: 5px;
+    align-content: center;
+}
+
+/* ----------------------*/
+/* ------- SEARCH -------*/
+/* ----------------------*/
+.btn-primary{
+	width: 100%;
+}
+
+.paddingPadrao{
+    padding: 7px;
+}
+
+.nome{
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.f{
+    max-width: 100%;
+    height: 1fr;
+    max-height: 300px;
+    padding: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.descricao{
+    bottom: 0px;
+}
+
+.desaparecido{
+    border-style: solid;
+    border-color: lightgray;
+    border-radius: 10px;
+    border-width: 1px;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.teste{
+    padding: 1%;
+}
+
+a, a:hover {
+    color: var(--bg-dark);
+    text-decoration: none;
+    font-size: 15px !important;
+}

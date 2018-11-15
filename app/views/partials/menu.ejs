@@ -1,0 +1,18 @@
+<!-- views/partials/header.ejs -->
+    <nav class="menu" id="menu">
+        <!--a href="#"><i class="fa fa-sign-in"></i> Sair</a>
+        <a href="#"><i class="fa fa-pencil"></i> Cadastrar Usuário</a>
+        <a href="#"><i class="fa fa-search"></i> Pesquisar Desaparecidos</a-->
+
+        <a href="/user"><i class="fa fa-user"></i> Usuário</a>
+        <a href="/register"><i class="fa fa-pencil"></i> Cadastrar Desaparecidos</a>
+        <a href="/search"><i class="fa fa-search"></i> Pesquisar Desaparecidos</a>
+        <a href="/" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="fa fa-sign-out" align="right"></i> Sair
+            
+            <form id="logout-form" action="#" method="POST" style="display: none;">
+                
+            </form>
+        </a>
+        <a class="icon"><i class="fa fa-bars" onclick="expandMenu()"></i></a>
+    </nav>
