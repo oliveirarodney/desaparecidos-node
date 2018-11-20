@@ -1,5 +1,5 @@
 module.exports = function(app){
     app.get('/edit', function (req, res) {
-        res.render('pages/edit')
+        res.render('pages/edit', {req})
     })
 }

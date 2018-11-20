@@ -6,8 +6,8 @@ UsuariosDAO.prototype.storeUsuario = function (usuario, callback) {
 	this._conn.query('insert into usuarios set ?, flag = 1', usuario, callback)
 }
 
-UsuariosDAO.prototype.getUsuario = function (id, callback) {
-	this._conn.query('select * from usuarios where id =' + id, callback)
+UsuariosDAO.prototype.authUsuario = function (usuario, callback) {
+	this._conn.query("select * from usuarios where username = '" + usuario.username + "' and password = '" + usuario.password + "'", callback)
 }
 
 UsuariosDAO.prototype.updateUsuario = function (id, usuario, callback) {

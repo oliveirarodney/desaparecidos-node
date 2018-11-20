@@ -13,7 +13,7 @@
                 <form method="POST" action="/login">
                     <div class="form-group row">
                         <div class="col-md-4">
-                            <input id="email" type="email" class="form-control" name="email" required autofocus placeholder="E-mail">
+                            <input type="text" class="form-control" name="username" placeholder="Usuário" value="<%= user.username %>">
                             <!--@if ($errors->has('email'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
@@ -24,7 +24,7 @@
 
                     <div class="form-group row">
                         <div class="col-md-4">
-                            <input id="password" type="password" class="form-control" name="password" required placeholder="Senha">
+                            <input type="password" class="form-control" name="password" placeholder="Senha" value="<%= user.password %>">
                             <!--@if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>

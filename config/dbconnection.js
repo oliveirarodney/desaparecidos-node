@@ -1,6 +1,5 @@
 let credentials = require('./credentials.json')
 let mysql = require('mysql')
-let crypto = require('crypto')
 
 let connMySQL = function () {
     console.log("Iniciada a conexão com o banco");
