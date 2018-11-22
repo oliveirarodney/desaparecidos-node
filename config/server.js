@@ -17,17 +17,12 @@ app.use(expressSession({
     secret: 'o palmeiras não tem mundial',
     resave: false,
     saveUninitialized: true,
-    /*cookie: {
-        maxAge: 1000*3,
-        secure: true
-    }*/
+    cookie: {
+        maxAge: 1000*60*60*24*365*100
+    }
 }))
 app.use(function(req, res, next) {
     res.locals.user = req.session.user
-    console.log("Local: ")
-    console.log(res.locals.user)
-    console.log("Sessão: ")
-    console.log(req.session.user)
     next()
 })
 

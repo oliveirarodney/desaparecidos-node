@@ -8,47 +8,47 @@
 </header>
 <main class="container-fluid nopadding">
     <div class="content">
-        <form method="POST" action="{{ URL::to('/cadastrar') }}" enctype="multipart/form-data"> 
+        <form method="POST" action="/register"> 
             <div class="row nopadding">
                 <div class="col-md-12 register">
                     <label>Nome completo:</label>
-                    <input class="form-control" type="text" name="nome" onChange="" placeholder="Digite o nome da pessoa" />
+                    <input class="form-control" type="text" name="nome" placeholder="Digite o nome da pessoa" autofocus>
                 </div>
                 <div class="col-md-7 register">
 
                     <div class="row nopadding">
                         <div class="col-md-12 register">
                             <label>Data de nascimento:</label>
-                            <input class="form-control" type="date" name="datanasc" value="" onChange="" />
+                            <input class="form-control" type="date" name="datanasc" autofocus>
                         </div>
 
                         <div class="col-md-12 register">
                             <label>Visto por Último:</label>
-                            <input class="form-control" type="date" name="dataultimo" />
+                            <input class="form-control" type="date" name="dataultimo" autofocus>
                         </div>
                     </div>
                     <div class="col-md-12 register">
                         <label>Selecionar foto:</label>
-                        <input name="foto" type="file" class="form-control-file" id="upload"/>
+                        <input name="foto" type="file" class="form-control-file" id="upload" autofocus>
                     </div>
                 </div>
                 <div class="col-md-5 register">
                     <label id="labelFotoSelecionada">Foto do Desaparecido:</label>
                     <img id="img" src="#"
-                        alt="Foto da pessoa desaparecida" />
+                        alt="Foto da pessoa desaparecida" autofocus>
                 </div>
             </div>
 
             <div class="row nopadding">
                 <div class="col-md-6 register">
                     <label> Estado em que desapareceu:</label>
-                    <select class="form-control" name="estadodes" id="estados">
+                    <select class="form-control" name="estadodes" id="estados" autofocus>
                     </select>
                 </div>
 
                 <div class="col-md-6 register">
                     <label> Cidade em que desapareceu:</label>
-                    <select class="form-control" name="cidadedes" id="cidades">
+                    <select class="form-control" name="cidadedes" id="cidades" autofocus>
                     </select>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <div class="col-md-12 register">
                     <label>Local em que foi visto pela última vez</label>
                     <input class="form-control" type="text" name="endvistoultimo"
-                        placeholder="Digite um endereço" />
+                        placeholder="Digite um endereço" autofocus>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
                 <div class="col-md-12 register">
                     <label>Características físicas</label>
                     <textarea class="form-control" name="caracteristicasfis"
-                        placeholder="Descreva as características físicas da pessoa desaparecida"></textarea>
+                        placeholder="Descreva as características físicas da pessoa desaparecida" autofocus></textarea>
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                 <div class="col-md-12 register">
                     <label>Vestimenta</label>
                     <textarea class="form-control" name="vestimenta"
-                        placeholder="Roupas usadas no momento do desaparecimento"></textarea>
+                        placeholder="Roupas usadas no momento do desaparecimento" autofocus></textarea>
                 </div>
             </div>
 

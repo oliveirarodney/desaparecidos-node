@@ -64,6 +64,7 @@ expandMenu = () => {
 
 mostrarDelegacia = () => {
     let estado = document.getElementById("estadosdelegacias");
+    console.log(estado)
     let estadoSelecionado = estado.options[estado.selectedIndex].value;
     let parent = document.getElementById("link");
     let child = parent.firstChild;

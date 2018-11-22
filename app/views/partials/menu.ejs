@@ -1,24 +1,23 @@
 <!-- views/partials/header.ejs -->
     <nav class="menu" id="menu">
-        <!--a href="#"><i class="fa fa-sign-in"></i> Sair</a>
-        <a href="#"><i class="fa fa-pencil"></i> Cadastrar Usuário</a>
-        <a href="#"><i class="fa fa-search"></i> Pesquisar Desaparecidos</a-->
-
-        <a href="/user"><i class="fa fa-user"></i> Usuário</a>
-        <a href="/register"><i class="fa fa-pencil"></i> Cadastrar Desaparecidos</a>
-        <a href="/search"><i class="fa fa-search"></i> Pesquisar Desaparecidos</a>
-        
-        <% if (!(user === undefined || user === '')) {%>
+        <% if (user === undefined || user === '') {%>
+            <a href="/newuser"><i class="fa fa-pencil"></i> Cadastrar Usuário</a>
+            <a href="/search"><i class="fa fa-search"></i> Pesquisar Desaparecidos</a>
+            <a href="/login"><i class="fa fa-sign-in"></i> Login</a>
+        <% } else { %>
+            <a href="/user"><i class="fa fa-user"></i> Usuário</a>
+            <a href="/register"><i class="fa fa-pencil"></i> Cadastrar Desaparecidos</a>
+            <a href="/search"><i class="fa fa-search"></i> Pesquisar Desaparecidos</a>
             <a href="/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa fa-sign-out" align="right"></i> Sair
                 
                 <form id="logout-form" action="/logout" method="POST" style="display: none;">
                     
                 </form>
-        </a>
-        <a class="menu">
-                Olá, <%= user[0].username %>
-        </a>
+            </a>
+            <a class="menu">
+                    Olá, <%= user[0].username %>
+            </a>
         <% } %>
         <a class="icon"><i class="fa fa-bars" onclick="expandMenu()"></i></a>
     </nav>

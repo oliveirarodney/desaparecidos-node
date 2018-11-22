@@ -1,9 +1,17 @@
 <header class="header">
     <div class="row">
-        <h1 class="col-xs-8">
+        <h1 class="col-md-5">
             <i class="fa fa-user"></i>
             Usuário 
         </h1>
+        <div class="col-md-3 offset-md-3">
+            <button onclick="window.location = 'edituser'" class="btn btn-primary">Editar dados</button>
+            
+            <button onclick="window.location = 'deleteuser'" class="btn btn-primary" style="background-color: red">Excluir conta</button>
+            <!--a class="btn btn-link" href="{{ route('password.request') }}">
+                {{ __('Esqueceu sua senha?') }}
+            </a-->
+        </div>
     </div>
 </header>
 <main class="container-fluid nopadding">

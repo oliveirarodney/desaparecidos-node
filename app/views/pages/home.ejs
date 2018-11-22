@@ -31,11 +31,11 @@
                 </div>
                 <div class="col-md-4">
                     <div>
-                        <select id="estadosdelegacias" onChange="return mostrarDelegacia()">
+                        <select class="form-control" id="estadosdelegacias" onChange="return mostrarDelegacia()">
                             <option>Selecione um estado</option>
-                            <!--@foreach($delegacias as $delegacia)
-                                <option value="{{$delegacia->delegacia}}">{{$delegacia->estado}}</option>
-                            @endforeach-->
+                            <% for (let i = 0; i < delegacias.length; i++) { %>
+                                <option value="<%- delegacias[i].delegacia %>"><%- delegacias[i].estado %></option>
+                            <% } %> 
                         </select>
                     </div>
                 </div>

@@ -1,9 +1,10 @@
-create database Desaparecidos;
+create database Desaparecidos2;
 
-use Desaparecidos;
+use Desaparecidos2;
 
 create table `usuarios` (
 	idusuario 		int 		primary key auto_increment, 
+	nome			varchar(50)				not null,
 	username 		varchar(20) unique 		not null, 
 	email 			varchar(50) unique 		not null, 
 	password 		varchar(36) 			not null, 

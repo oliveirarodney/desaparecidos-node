@@ -6,4 +6,8 @@ module.exports = function(app){
             res.redirect('/login')
         }
     })
+
+    app.get('/deleteuser', function (req, res) {
+        app.app.controllers.UsuarioController.UsuarioDelete(app, req, res)
+    })
 }
