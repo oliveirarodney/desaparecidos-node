@@ -10,77 +10,91 @@
     <div class="content">
         <div class="row">
             <div class="col-sm-5 col-md-3">
-                <img 
-                    src="../storage/images/{{$desaparecido->foto}}" 
-                    class="f"
-                    alt="Foto {{$desaparecido->nome}}, desaparecido(a) em {{$desaparecido->dataultimo}} na cidade de {{$desaparecido->cidadedes}}, {{$desaparecido->estadodes}}"
-                >   
-                @if(Auth::check())
-                    @if($desaparecido->usuario_id == Auth::user()->id)
-                        <div style="display: flex; justify-content: center; ">    
-                            <form action="{{ route('edit', ['desaparecido_id'=>$desaparecido->id]) }}">
-                                <button class="btn btn-warning" type="submit" style="height: 30px; font-size: 10px !important;"><i class="fa fa-pencil"></i> Editar página</button>
-                            </form>
-                            <form action="{{ route('excluirDesaparecido', ['desaparecido_id'=>$desaparecido->id]) }}" method="POST"">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <button class="btn btn-danger" type="submit" style="margin: 0px 0px 0px 10px; height: 30px; font-size: 10px !important;"><i class="fa fa-trash"></i> Excluir página</button>
-                            </form>
-                        </div>
-                    @endif
-                @endif
+                <img src="../storage/images/{{$desaparecido->foto}}" class="f" alt="Foto <%- desaparecido[0].nome %>, desaparecido(a) em <%- desaparecido[0].dataultimo.getDate() %>/<%- desaparecido[0].dataultimo.getMonth() %>/<%- desaparecido[0].dataultimo.getFullYear() %> na cidade de <%- desaparecido[0].cidadedes %>, <%- desaparecido[0].estadodes %>">
+                <% if(user) { %>
+                    <% if(desaparecido[0].usuario_id === user[0].idusuario) { %>
+                    <div style="display: flex; justify-content: center; ">
+                        <form action="/page/<%- desaparecido[0].iddesaparecido %>/edit">
+                            <button class="btn btn-warning" type="submit" style="height: 30px; font-size: 10px !important;"><i
+                                    class="fa fa-pencil"></i> Editar página</button>
+                        </form>
+                        <form action="/page/<%- desaparecido[0].iddesaparecido %>/delete" method="POST">
+                            <button class="btn btn-danger" type="submit" style="margin: 0px 0px 0px 10px; height: 30px; font-size: 10px !important;"><i
+                                    class="fa fa-trash"></i> Excluir página</button>
+                        </form>
+                    </div>
+                    <% } %>
+                <% } %>
             </div>
-            
+
             <div class="col-sm-7 col-md-9">
-                <h3>{{$desaparecido->nome}}</h3>
-                <p><strong>Data de nascimento: </strong>{{$desaparecido->datanasc->format('d/m/Y')}}</p>
-                <p><strong>Data do desaparecimento: </strong>{{$desaparecido->dataultimo->format('d/m/Y')}}</p>
-                <p><strong>Local do Desaparecimento: </strong>{{$desaparecido->endvistoultimo}} - {{$desaparecido->cidadedes}}/{{$desaparecido->estadodes}}</p>
-                <p><strong>Características físicas: </strong>{{$desaparecido->caracteristicasfis}}</p>
-                <p><strong>Vestimenta no dia do desaparecimento: </strong>{{$desaparecido->vestimenta}}</p>
+                <h3>
+                    <%- desaparecido[0].nome %>
+                </h3>
+                <p><strong>Data de nascimento: </strong>
+                    <%- desaparecido[0].datanasc.getDate() %>/
+                    <%- desaparecido[0].datanasc.getMonth() %>/
+                    <%- desaparecido[0].datanasc.getFullYear() %>
+                </p>
+                <p><strong>Data do desaparecimento: </strong>
+                    <%- desaparecido[0].dataultimo.getDate() %>/
+                    <%- desaparecido[0].dataultimo.getMonth() %>/
+                    <%- desaparecido[0].dataultimo.getFullYear() %>
+                </p>
+                <p><strong>Local do Desaparecimento: </strong>
+                    <%- desaparecido[0].endvistoultimo %> -
+                    <%- desaparecido[0].cidadedes %>/
+                    <%- desaparecido[0].estadodes %>
+                </p>
+                <p><strong>Características físicas: </strong>
+                    <%- desaparecido[0].caracteristicasfis %>
+                </p>
+                <p><strong>Vestimenta no dia do desaparecimento: </strong>
+                    <%- desaparecido[0].vestimenta %>
+                </p>
             </div>
         </div>
         <hr>
-        @if(Auth::check())
+        <% if(user) { %>
         <div>
-            <h3>Tem alguma informação? Comente aqui:</h3>
-            <form action="{{ route('fazerComentario', ['desaparecido_id'=>$desaparecido->id, 'usuario_id'=>Auth::user()->id]) }}" method="POST">
-                {{ csrf_field() }}
+            <h3>Tem alguma informação? Comente aqui: </h3>
+            <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment"
+                method="POST">
                 <textArea name="comentario" class="form-control" placeholder="Digite o seu comentário aqui"></textArea>
                 <button class="btn btn-primary submit" type="submit">Enviar</button>
             </form>
             <hr>
         </div>
-        @endif
+        <% } %>
         <div>
-            <h3>Comentários ({{count($desaparecido->comentarios)}}): </h3>
+             <h3>Comentários (<% if(desaparecido.comentarios.length > 0){ %>
+                <%- desaparecido.comentarios.length %>
+                <%} else {%>
+                0
+                <%}%>)</h3>
             <hr>
-            @foreach($desaparecido->comentarios as $comentario)
-                @foreach($coment as $c)
-                    @if($comentario->id === $c->id)
-                        <div>
-                            <p style="font-size: 12px !important" width="100%">{{$c->user->name}} comentou em {{date('d-m-Y  à\s\  H:i:s', strtotime($c->created_at))}}:</p>
-                            <p>{{$c->comentario}}</p>
-                            @if(Auth::check())
-                                @if($desaparecido->usuario_id === Auth::user()->id)
-                                    <form action="{{ route('delete', ['desaparecido_id'=>$desaparecido->id, 'comentario_id'=>$c->id]) }}" method="POST">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Excluir</button>
-                                    </form>
-                                @elseif($c->usuario_id === Auth::user()->id)
-                                    <form action="{{ route('delete', ['desaparecido_id'=>$desaparecido->id, 'comentario_id'=>$c->id]) }}" method="POST">
-                                        {{ method_field('DELETE') }}
-                                        {{ csrf_field() }}
-                                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Excluir</button>
-                                    </form>
-                                @endif
-                            @endif
-                        </div>
-                        <hr>
-                    @endif
-                @endforeach
-            @endforeach
+            <% for (let i = 0; i < desaparecido.comentarios.length; i++) { %>
+                <div id = "comentario<%-i%>" >
+                    <p style="font-size: 12px !important" width="100%"><%- desaparecido.comentarios[i].username %> comentou em {{date('d-m-Y à\s\
+                        H:i:s', strtotime($c->created_at))}}:</p>
+                    <p id = "coment<%-i%>"><%- desaparecido.comentarios[i].comentario %></p>
+                    <% if(user) { %>
+                        <% if(desaparecido.usuario_id === user[0].idusuario || user[0].adm === 1 || desaparecido.comentarios[i].usuario_id === user[0].idusuario) { %>
+                            <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment/<%-desaparecido.comentarios[i].idcomentario %>/edit" method="POST" id="editcomment">
+                            </form>
+                            <div style="display: flex;" id = "divedit">
+                                <button class="btn btn-warning" onclick="editarComentario(<%-i%>)" style="height: 30px; font-size: 10px !important; margin-right: 10px;" id="editbutton"><i
+                                        class="fa fa-pencil"></i></button>
+                                <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment/<%-desaparecido.comentarios[i].idcomentario %>/delete"
+                                    method="POST" id = "deletebutton">
+                                    <button class="btn btn-danger" onclick="submit"  style="height: 30px; font-size: 10px !important;"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <hr>
+            <% } %>
         </div>
     </div>
 </main>

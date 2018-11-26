@@ -29,7 +29,8 @@ $(document).ready(function () {
         }).change();		
     
     });
-
+    
+    $('#img').attr('src', '/images/noimage.jpg');
     $('#upload').change(function(){
         var input = this;
         var url = $(this).val();
@@ -45,7 +46,7 @@ $(document).ready(function () {
         }
         else
         {
-          $('#img').attr('src', '/assets/no_preview.png');
+          $('#img').attr('src', '/images/noimage.jpg');
         }
     });
 
@@ -84,4 +85,31 @@ mostrarDelegacia = () => {
         link = document.createElement("p");
     }
     parent.appendChild(link);
+}
+
+editarComentario = (i) => {
+    alert(i)
+    let editcomment = document.getElementById("editcomment" + i)
+    let edit = document.getElementById("comentario" + i)
+    let commentDisplay = document.getElementById("coment" + i)
+    let comment = commentDisplay.textContent
+    let divedit = document.getElementById("divedit")
+    let editbutton = document.getElementById("editbutton")
+    let deletebutton = document.getElementById("deletebutton")
+    let textarea = document.createElement("textArea" + i)
+    let divrow = document.createElement("div" + i)
+    let submit = document.createElement("button")
+    divedit.removeChild(editbutton)
+    divedit.removeChild(deletebutton)
+    textarea.setAttribute("class", "form-control")
+    textarea.setAttribute("name", "comentario")
+    textarea.value = comment
+    edit.removeChild(commentDisplay)
+    divrow.setAttribute("class", "row")
+    submit.setAttribute("type", "submit")
+    submit.setAttribute("class", "btn btn-primary submit")
+    submit.innerHTML = "Enviar"
+    editcomment.appendChild(textarea)
+    divrow.appendChild(submit)
+    editcomment.appendChild(divrow)
 }

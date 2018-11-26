@@ -32,4 +32,8 @@ consign().include('app/routes')
 .then('app/controllers')
 .into(app);
 
+app.get('*', function(req, res) {
+    res.render('pages/error')
+});
+
 module.exports = app;

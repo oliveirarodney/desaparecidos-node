@@ -17,28 +17,26 @@
 <main class="container-fluid nopadding">
     <div class="content">
         <div class="row">
-            @if(count($desaparecidos) === 0)
-                <p>Você não cadastrou nenhum desaparecimento. Se desejar cadastrar, clique <a href="/cadastrar">aqui</a>.</p>
-            @endif
-            @foreach($desaparecidos as $desaparecido)
-                <div class="col-sm-6 col-md-4 teste">
-                    <div class="desaparecido">
-                        <a href="{{ route('page', ['id' => $desaparecido->id ]) }}">
-                            <p class="nome">{{$desaparecido->nome}}</p>
-                            <div class="foto">
-                                <img src="/storage/images/{{$desaparecido->foto}}" alt="Foto desaparecido" class="f" />
-                            </div>
-                            <div class="descricao">
-                                <p class="desaparecidoem">Desaparecido(a) em: {{$desaparecido->dataultimo}}</p>
-                                <p class="cidade">Cidade: {{$desaparecido->cidadedes}}</p>
-                            </div>
-                        </a>
-                        <div class="share">
-    
+            <% if(desaparecidos.length === 0) { %>
+                <p>Você não cadastrou nenhum desaparecimento. Se desejar cadastrar, clique <a href="/register">aqui</a>.</p>
+            <% } else { %>
+                <% for (let i = 0; i < desaparecidos.length; i++) { %>
+                    <div class="col-sm-6 col-md-4 teste">
+                        <div class="desaparecido">
+                            <a href="/page/<%- desaparecidos[i].iddesaparecido %>">
+                                <p class="nome"><%- desaparecidos[i].nome %></p>
+                                <div class="foto">
+                                    <img src="/data:image/jpg" alt="Foto desaparecido" class="f" />
+                                </div>
+                                <div class="descricao">
+                                    <p class="desaparecidoem">Desaparecido(a) em: <%- desaparecidos[i].dataultimo %></p>
+                                    <p class="cidade">Cidade: <%- desaparecidos[i].cidadedes %></p>
+                                </div>
+                            </a>
                         </div>
-                    </div>
-                </div>    
-            @endforeach
+                    </div>    
+                <%}%>
+            <%}%>
         </div>
     </div>
 </main>

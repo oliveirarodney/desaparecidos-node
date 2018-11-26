@@ -1,6 +1,8 @@
 module.exports = function(app){
-    app.get('/page/:id', function (req, res, next) {
-        app.app.controllers.DesaparecidosController.getDesaparecido(app, req, res)
+    app.get('/page/:id/edit', function (req, res, next) {
+        res.render('pages/edit', { desaparecido })
+        console.log('next')
+        return next()
     })
 
     app.post('/page/:id/edit', function (req, res) {

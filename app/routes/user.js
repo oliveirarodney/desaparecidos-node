@@ -1,7 +1,7 @@
 module.exports = function(app){
     app.get('/user', function (req, res) {
         if (res.locals.user) {
-            res.render('pages/user')
+            app.app.controllers.DesaparecidosController.ListarDesaparecidosUser(app, req, res)
         } else {
             res.redirect('/login')
         }

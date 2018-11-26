@@ -10,12 +10,16 @@ DesaparecidosDAO.prototype.getDesaparecido = function (id, callback) {
 	this._conn.query('select * from desaparecidos where iddesaparecido =' + id, callback)
 }
 
+DesaparecidosDAO.prototype.getDesaparecidosUser = function (id, callback) {
+	this._conn.query('select * from desaparecidos where usuario_id =' + id, callback)
+}
+
 DesaparecidosDAO.prototype.getAllDesaparecidos = function (callback) {
 	this._conn.query('select * from desaparecidos', callback)
 }
 
 DesaparecidosDAO.prototype.getNomeDesaparecidos = function (search, callback) {
-	this._conn.query("select * from desaparecidos where nome = '" + search.nome + "'", callback)
+	this._conn.query("select * from desaparecidos where nome like '%" + search.nome + "%'", callback)
 }
 
 DesaparecidosDAO.prototype.getCidadeDesaparecidos = function (search, callback) {
@@ -23,11 +27,11 @@ DesaparecidosDAO.prototype.getCidadeDesaparecidos = function (search, callback) 
 }
 
 DesaparecidosDAO.prototype.getSearchDesaparecidos = function (search, callback) {
-	this._conn.query("select * from desaparecidos where nome = '" + search.nome + "' and cidadedes = '" + search.cidadedes + "'", callback)
+	this._conn.query("select * from desaparecidos where nome like '%" + search.nome + "%' and cidadedes = '" + search.cidadedes + "'", callback)
 }
 
-DesaparecidosDAO.prototype.updateDesaparecido = function (id, desaparecido, callback) {
-	this._conn.query('update desaparecido set ? where id = ' + id, desaparecido, callback)
+DesaparecidosDAO.prototype.updateDesaparecido = function (comentario, callback) {
+	this._conn.query('update desaparecido set ? where iddesaparecido = ' + comentario.iddesaparecido, comentario.comentario, callback)
 }
 
 DesaparecidosDAO.prototype.deleteDesaparecido = function (id, callback) {
