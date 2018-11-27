@@ -10,6 +10,14 @@ UsuariosDAO.prototype.authUsuario = function (usuario, callback) {
 	this._conn.query("select * from usuarios where username = '" + usuario.username + "' and password = '" + usuario.password + "' and ativo = 1", callback)
 }
 
+UsuariosDAO.prototype.getAllUsuarios = function (callback) {
+	this._conn.query("select * from usuarios where ativo = 1", callback)
+}
+
+UsuariosDAO.prototype.getAllUsuariosInativos = function (callback) {
+	this._conn.query("select * from usuarios where ativo = 0", callback)
+}
+
 UsuariosDAO.prototype.updateUsuario = function (usuario, callback) {
 	this._conn.query('update usuarios set ? where idusuario = ' + usuario.idusuario , usuario, callback)
 	console.log('atualizado no banco de dados')
@@ -17,6 +25,10 @@ UsuariosDAO.prototype.updateUsuario = function (usuario, callback) {
 
 UsuariosDAO.prototype.deleteUsuario = function (idusuario, callback) {
 	this._conn.query('update usuarios set ativo = 0 where idusuario = ' + idusuario, callback)
+}
+
+UsuariosDAO.prototype.restaurarUsuario = function (idusuario, callback) {
+	this._conn.query('update usuarios set ativo = 1 where idusuario = ' + idusuario, callback)
 }
 
 module.exports = function(){ 

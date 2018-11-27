@@ -43,6 +43,29 @@ module.exports.NovoUsuario = function(app, req, res) {
     })
 }
 
+module.exports.ListarTodosUsuarios = function(app, req, res) {
+    let usuarios = {}
+    let usuariosInativos = {}
+    let connection = app.config.dbConnection()
+    let UsuariosDAO = new app.app.models.UsuariosDAO(connection)
+    
+    UsuariosDAO.getAllUsuarios(function(error, result) {
+        if(!error) {
+            console.log(result)
+            usuarios = result
+            
+            UsuariosDAO.getAllUsuariosInativos(function(error, result) {
+                if(!error) {
+                    usuariosInativos = result
+                    res.render('pages/admin/listusers', { usuarios, usuariosInativos })
+                }
+            })
+        } else {
+            console.log(error)
+            res.redirect('/asdjasdj')
+        }
+    })
+}
 module.exports.UsuarioEdit = function(app, req, res) {
     console.log('test')
     let crypto = require('crypto')
@@ -71,15 +94,35 @@ module.exports.UsuarioEdit = function(app, req, res) {
 }
 
 module.exports.UsuarioDelete = function(app, req, res) {
-    let usuario = res.locals.user[0]
+    let id = req.params.id
     let connection = app.config.dbConnection()
     let UsuariosDAO = new app.app.models.UsuariosDAO(connection)
-    console.log(usuario)
-    UsuariosDAO.deleteUsuario(usuario.idusuario, function(error) {
+    UsuariosDAO.deleteUsuario(id, function(error) {
         if(error) {
             console.log(error)
         } else {
-            res.redirect('/logout')
+            if(res.locals.user){
+                res.redirect('/listusers')
+            } else {
+                res.redirect('/logout')
+            }
+        }
+    })
+}
+
+module.exports.UsuarioRestaurar = function(app, req, res) {
+    let id = req.params.id
+    let connection = app.config.dbConnection()
+    let UsuariosDAO = new app.app.models.UsuariosDAO(connection)
+    UsuariosDAO.restaurarUsuario(id, function(error) {
+        if(error) {
+            console.log(error)
+        } else {
+            if(res.locals.user){
+                res.redirect('/listusers')
+            } else {
+                res.redirect('/logout')
+            }
         }
     })
 }

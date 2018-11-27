@@ -8,23 +8,23 @@
 </header>
 <main class="container-fluid nopadding">
     <div class="content">
-        <form method="POST" action="/editdesaparecido/:<%- desaparecido[0].iddesaparecido %>">
+        <form method="POST" action="/page/<%- desaparecido[0].iddesaparecido %>/edit">
             <div class="row nopadding">
                 <div class="col-md-12 register">
                     <label>Nome completo:</label>
-                    <input class="form-control" type="text" value="" name="nome" onChange="" placeholder="Digite o nome da pessoa" />
+                    <input class="form-control" type="text" value="<%- desaparecido[0].nome %>" name="nome" placeholder="Digite o nome da pessoa" />
                 </div>
                 <div class="col-md-7 register">
 
                     <div class="row nopadding">
                         <div class="col-md-12 register">
                             <label>Data de nascimento:</label>
-                            <input class="form-control" type="date" name="datanasc" value="" onChange="" />
+                            <input class="form-control" type="date" name="datanasc" value="<%- desaparecido[0].datanasc %>" onChange="" />
                         </div>
 
                         <div class="col-md-12 register">
                             <label>Visto por Último:</label>
-                            <input class="form-control" type="date" name="dataultimo" />
+                            <input class="form-control" type="date" name="dataultimo" value="<%- desaparecido[0].dataultimo %>/>
                         </div>
                     </div>
                     <div class="col-md-12 register">
@@ -42,13 +42,13 @@
             <div class="row nopadding">
                 <div class="col-md-6 register">
                     <label> Estado em que desapareceu:</label>
-                    <select class="form-control" name="estadodes" select="selected" id="estados">
+                    <select class="form-control" name="estadodes" select="selected" id="estados" value="<%- desaparecido[0].estadodes %>">
                     </select>
                 </div>
 
                 <div class="col-md-6 register">
                     <label> Cidade em que desapareceu:</label>
-                    <select class="form-control" name="cidadedes" id="cidades">
+                    <select class="form-control" name="cidadedes" id="cidades" value="<%- desaparecido[0].cidadedes %>">
                     </select>
                 </div>
             </div>
@@ -56,7 +56,7 @@
             <div class="row nopadding">
                 <div class="col-md-12 register">
                     <label>Local em que foi visto pela última vez</label>
-                    <input class="form-control" type="text" name="endvistoultimo" value=""
+                    <input class="form-control" type="text" name="endvistoultimo" value="<%- desaparecido[0].endvistoultimo %>"
                         placeholder="Digite um endereço" />
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <div class="row nopadding">
                 <div class="col-md-12 register">
                     <label>Características físicas</label>
-                    <textarea class="form-control" name="caracteristicasfis"
+                    <textarea class="form-control" name="caracteristicasfis" value="<%- desaparecido[0].caracteristicasfis %>"
                         placeholder="Descreva as características físicas da pessoa desaparecida"></textarea>
                 </div>
             </div>
@@ -72,7 +72,7 @@
             <div class="row nopadding">
                 <div class="col-md-12 register">
                     <label>Vestimenta</label>
-                    <textarea class="form-control" name="vestimenta"
+                    <textarea class="form-control" name="vestimenta" value="<%- desaparecido[0].vestimenta %>"
                         placeholder="Roupas usadas no momento do desaparecimento"></textarea>
                 </div>
             </div>
@@ -80,7 +80,6 @@
             <div class="row nopadding" align="right">
                 <div class="col-md-12 register">
                     <button type="submit" class="btn btn-primary submit">Enviar</button>
-                    <!--button class="btn btn-secondary submit">Cancelar</button-->
                 </div>
             </div>
         </form>

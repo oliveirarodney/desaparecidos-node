@@ -88,12 +88,11 @@ mostrarDelegacia = () => {
 }
 
 editarComentario = (i) => {
-    alert(i)
     let editcomment = document.getElementById("editcomment" + i)
     let edit = document.getElementById("comentario" + i)
     let commentDisplay = document.getElementById("coment" + i)
     let comment = commentDisplay.textContent
-    let divedit = document.getElementById("divedit")
+    let divedit = document.getElementById("divedit" + i)
     let editbutton = document.getElementById("editbutton")
     let deletebutton = document.getElementById("deletebutton")
     let textarea = document.createElement("textArea" + i)

@@ -12,17 +12,17 @@
             <div class="col-sm-5 col-md-3">
                 <img src="../storage/images/{{$desaparecido->foto}}" class="f" alt="Foto <%- desaparecido[0].nome %>, desaparecido(a) em <%- desaparecido[0].dataultimo.getDate() %>/<%- desaparecido[0].dataultimo.getMonth() %>/<%- desaparecido[0].dataultimo.getFullYear() %> na cidade de <%- desaparecido[0].cidadedes %>, <%- desaparecido[0].estadodes %>">
                 <% if(user) { %>
-                    <% if(desaparecido[0].usuario_id === user[0].idusuario) { %>
-                    <div style="display: flex; justify-content: center; ">
-                        <form action="/page/<%- desaparecido[0].iddesaparecido %>/edit">
-                            <button class="btn btn-warning" type="submit" style="height: 30px; font-size: 10px !important;"><i
-                                    class="fa fa-pencil"></i> Editar página</button>
-                        </form>
-                        <form action="/page/<%- desaparecido[0].iddesaparecido %>/delete" method="POST">
-                            <button class="btn btn-danger" type="submit" style="margin: 0px 0px 0px 10px; height: 30px; font-size: 10px !important;"><i
+                    <% if(desaparecido[0].usuario_id === user[0].idusuario || user[0].adm === 1) { %>
+                        <div style="display: flex; justify-content: center; ">
+                            <button onclick="window.location = '/page/<%- desaparecido[0].iddesaparecido %>/edit'" class="btn btn-warning"
+                                type="submit" style="height: 30px; font-size: 10px !important;"><i class="fa fa-pencil"></i>
+                                Editar página</button>
+
+                            <button onclick="window.location = '/page/<%- desaparecido[0].iddesaparecido %>/delete/<%- desaparecido[0].usuario_id %>'" class="btn btn-danger"
+                                type="submit" style="margin: 0px 0px 0px 10px; height: 30px; font-size: 10px !important;"><i
                                     class="fa fa-trash"></i> Excluir página</button>
-                        </form>
-                    </div>
+
+                        </div>
                     <% } %>
                 <% } %>
             </div>
@@ -58,8 +58,7 @@
         <% if(user) { %>
         <div>
             <h3>Tem alguma informação? Comente aqui: </h3>
-            <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment"
-                method="POST">
+            <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment" method="POST">
                 <textArea name="comentario" class="form-control" placeholder="Digite o seu comentário aqui"></textArea>
                 <button class="btn btn-primary submit" type="submit">Enviar</button>
             </form>
@@ -67,33 +66,36 @@
         </div>
         <% } %>
         <div>
-             <h3>Comentários (<% if(desaparecido.comentarios.length > 0){ %>
+            <h3>Comentários (
+                <% if(desaparecido.comentarios.length > 0){ %>
                 <%- desaparecido.comentarios.length %>
                 <%} else {%>
                 0
                 <%}%>)</h3>
             <hr>
             <% for (let i = 0; i < desaparecido.comentarios.length; i++) { %>
-                <div id = "comentario<%-i%>" >
-                    <p style="font-size: 12px !important" width="100%"><%- desaparecido.comentarios[i].username %> comentou em {{date('d-m-Y à\s\
-                        H:i:s', strtotime($c->created_at))}}:</p>
-                    <p id = "coment<%-i%>"><%- desaparecido.comentarios[i].comentario %></p>
-                    <% if(user) { %>
-                        <% if(desaparecido.usuario_id === user[0].idusuario || user[0].adm === 1 || desaparecido.comentarios[i].usuario_id === user[0].idusuario) { %>
-                            <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment/<%-desaparecido.comentarios[i].idcomentario %>/edit" method="POST" id="editcomment">
-                            </form>
-                            <div style="display: flex;" id = "divedit">
-                                <button class="btn btn-warning" onclick="editarComentario(<%-i%>)" style="height: 30px; font-size: 10px !important; margin-right: 10px;" id="editbutton"><i
-                                        class="fa fa-pencil"></i></button>
-                                <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment/<%-desaparecido.comentarios[i].idcomentario %>/delete"
-                                    method="POST" id = "deletebutton">
-                                    <button class="btn btn-danger" onclick="submit"  style="height: 30px; font-size: 10px !important;"><i class="fa fa-trash"></i></button>
-                                </form>
-                            </div>
-                        <% } %>
-                    <% } %>
+            <div id="comentario<%-i%>">
+                <p style="font-size: 12px !important" width="100%">
+                    <%- desaparecido.comentarios[i].username %> comentou em <%- desaparecido.comentarios[0].created_at %></p>
+                <p id="coment<%-i%>">
+                    <%- desaparecido.comentarios[i].comentario %>
+                </p>
+                <% if(user) { %>
+                <% if(desaparecido.usuario_id === user[0].idusuario || user[0].adm === 1 || desaparecido.comentarios[i].usuario_id === user[0].idusuario) { %>
+                <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment/<%-desaparecido.comentarios[i].idcomentario %>/edit"
+                    method="POST" id="editcomment">
+                </form>
+                <div style="display: flex;" id="divedit<%- i %>">
+                    <form action="/page/<%- desaparecido[0].iddesaparecido %>/comment/<%-desaparecido.comentarios[i].idcomentario %>/delete"
+                        method="POST" id="deletebutton">
+                        <button class="btn btn-danger" onclick="submit" style="height: 30px; font-size: 10px !important;"><i
+                                class="fa fa-trash"></i></button>
+                    </form>
                 </div>
-                <hr>
+                <% } %>
+                <% } %>
+            </div>
+            <hr>
             <% } %>
         </div>
     </div>

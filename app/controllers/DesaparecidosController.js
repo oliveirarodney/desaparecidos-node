@@ -96,55 +96,6 @@ module.exports.ListarDesaparecidosUser = function(app, req, res) {
 module.exports.NovoDesaparecido = function(app, req, res) {
     let desaparecido = req.body
     desaparecido.usuario_id = res.locals.user[0].idusuario
-    
-
-    /*let fs = require('fs.extra')
-    let multer = require('multer')
-
-    var storage = multer.diskStorage({ 
-        destination: function (req, file, cb) {
-            cb(null, '../tempDir/')
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.originalname)
-            console.log('FILEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
-            console.log(file)
-        }
-    });
-    
-    var upload = multer({ 
-        storage: storage
-    }).single('file');
-    
-    console.log(upload)
-
-    upload(req, res, function (err) {
-        console.log(req.file)
-        if (err) {
-            console.log('erro')
-            res.json({});
-            return;
-        }
-        
-        console.log('body.data')
-        console.log(req.body)
-
-        //let dir = JSON.parse(req.body.foto).directory;
-        let filename = req.body.foto;
-        //console.log(dir)
-        console.log(filename)
-    
-        fs.move('../tempDir/' + filename, './images/' + filename, function (err) {
-            if (err) {
-                console.log('move error')
-                console.log(err)
-                return console.error(err);
-            }
-    
-            res.json({});
-        });
-    
-    });*/
 
     let connection = app.config.dbConnection()
     let DesaparecidosDAO = new app.app.models.DesaparecidosDAO(connection)
@@ -158,6 +109,23 @@ module.exports.NovoDesaparecido = function(app, req, res) {
     })
 }
 
+module.exports.getDesaparecidoEdit = function(app, req, res) {
+    let desaparecido = {}
+    let id = req.params.id
+    let connection = app.config.dbConnection()
+    let DesaparecidosDAO = new app.app.models.DesaparecidosDAO(connection)
+    console.log('agora eu to puxando as coisa do banco')
+    DesaparecidosDAO.getDesaparecido(id, function(error, result) {
+        if(!error) {
+            desaparecido = result
+            console.log(desaparecido)
+            console.log('vou renderizar')
+            res.render('pages/edit', {desaparecido})
+        } else {
+            res.redirect('/page/'+id)
+        }
+    })
+}
 module.exports.getDesaparecido = function (app, req, res) {
     let desaparecido = {}
     let id = req.params.id
@@ -202,15 +170,77 @@ module.exports.getDesaparecido = function (app, req, res) {
 module.exports.EditarDesaparecido = function (app, req, res) {
     let desaparecido = {}
     desaparecido = req.body
+    console.log("Estou editando")
+    console.log(desaparecido)
+    let id = req.params.id
+    desaparecido.iddesaparecido = id
+    let connection = app.config.dbConnection()
+    let DesaparecidosDAO = new app.app.models.DesaparecidosDAO(connection)
+    console.log(desaparecido.iddesaparecido)
+    DesaparecidosDAO.updateDesaparecido(desaparecido, function(error) {
+        if(!error) {
+            res.redirect('/page/'+id)
+        } else {
+            console.log(error)
+            res.redirect('/')
+        }
+    })
+}
+
+module.exports.ListarTodosDesaparecidos = function(app, req, res) {
+    let desaparecidos = {}
+    let desaparecidosInativos = {}
+    let connection = app.config.dbConnection()
+    let DesaparecidosDAO = new app.app.models.DesaparecidosDAO(connection)
+    
+    DesaparecidosDAO.getAllDesaparecidos(function(error, result) {
+        if(!error) {
+            console.log(result)
+            desaparecidos = result
+            
+            DesaparecidosDAO.getAllDesaparecidosInativos(function(error, result) {
+                if(!error) {
+                    desaparecidosInativos = result
+                    res.render('pages/admin/listdesaparecidos', { desaparecidos, desaparecidosInativos })
+                }
+            })
+        } else {
+            console.log(error)
+            res.redirect('/asdjasdj')
+        }
+    })
+}
+
+module.exports.DesaparecidoDelete = function(app, req, res) {
     let id = req.params.id
     let connection = app.config.dbConnection()
-    let DesaparecidosDAO = app.app.models.DesaparecidosDAO(connection)
-    
-    DesaparecidosDAO.updateDesaparecido(id, desaparecido, function(error) {
+    let DesaparecidosDAO = new app.app.models.DesaparecidosDAO(connection)
+    DesaparecidosDAO.deleteDesaparecido(id, function(error) {
         if(error) {
             console.log(error)
         } else {
-            res.redirect('/page/:id')
+            if(res.locals.user[0].adm == 1){
+                res.redirect('/listdesaparecidos')
+            } else {
+                res.redirect('/user')
+            }
+        }
+    })
+}
+
+module.exports.DesaparecidoRestaurar = function(app, req, res) {
+    let id = req.params.id
+    let connection = app.config.dbConnection()
+    let DesaparecidosDAO = new app.app.models.DesaparecidosDAO(connection)
+    DesaparecidosDAO.restaurarDesaparecido(id, function(error) {
+        if(error) {
+            console.log(error)
+        } else {
+            if(res.locals.user[0].adm == 1){
+                res.redirect('/listdesaparecidos')
+            } else {
+                res.redirect('/user')
+            }
         }
     })
 }

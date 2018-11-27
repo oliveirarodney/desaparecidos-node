@@ -1,0 +1,72 @@
+<%- contentFor('body') %>
+<header class="header">
+    <div class="row">
+        <h1 class="col-xs-12">
+            <i class="fa fa-list"></i>
+            Listar Usuários
+        </h1>
+    </div>
+</header>
+<main class="container-fluid nopadding">
+    <div class="content">
+        <div>
+            <table class="table">
+                <h2>Usuários ativos</h2>
+                <tr>
+                    <td>Username</td>
+                    <td>Nome</td>
+                    <td>Email</td>
+                    <td>admin=0/user=1</td>
+                    <td>Excluir</td>
+                </tr>
+                <% for(let i = 0; i < usuarios.length; i++){%>
+                <tr>
+                    <td>
+                        <%- usuarios[i].username %>
+                    </td>
+                    <td>
+                        <%- usuarios[i].nome %>
+                    </td>
+                    <td>
+                        <%- usuarios[i].email %>
+                    </td>
+                    <td>
+                        <%- usuarios[i].adm %>
+                    </td>
+                    <td><button onclick="window.location = '/deleteuser/<%- usuarios[i].idusuario %>'" class="btn btn-primary"
+                            style="background-color: red">Excluir conta</button></td>
+                </tr>
+                <%}%>
+            </table>
+            <hr>
+            <table class="table">
+                <h2>Usuários inativos</h2>
+                <tr>
+                    <td>Username</td>
+                    <td>Nome</td>
+                    <td>Email</td>
+                    <td>admin=0/user=1</td>
+                    <td>Restaurar</td>
+                </tr>
+                <% for(let j = 0; j < usuariosInativos.length; j++){%>
+                <tr>
+                    <td>
+                        <%- usuariosInativos[j].username %>
+                    </td>
+                    <td>
+                        <%- usuariosInativos[j].nome %>
+                    </td>
+                    <td>
+                        <%- usuariosInativos[j].email %>
+                    </td>
+                    <td>
+                        <%- usuariosInativos[j].adm %>
+                    </td>
+                    <td><button onclick="window.location = '/restauraruser/<%- usuariosInativos[j].idusuario %>'" class="btn btn-primary"
+                            style="background-color: var(--bg-dark)">Restaurar conta</button></td>
+                </tr>
+                <%}%>
+            </table>
+        </div>
+    </div>
+</main>

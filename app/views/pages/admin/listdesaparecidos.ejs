@@ -1,0 +1,72 @@
+<%- contentFor('body') %>
+<header class="header">
+    <div class="row">
+        <h1 class="col-xs-12">
+            <i class="fa fa-list"></i>
+            Listar Usuários
+        </h1>
+    </div>
+</header>
+<main class="container-fluid nopadding">
+    <div class="content">
+        <div>
+            <table class="table">
+                <h2>Desaparecidos ativos</h2>
+                <tr>
+                    <td>Nome</td>
+                    <td>Data Nascimento</td>
+                    <td>Data Desaparecimento</td>
+                    <td>Cidade Desaparecimento</td>
+                    <td></td>
+                </tr>
+                <% for(let i = 0; i < desaparecidos.length; i++){%>
+                <tr>
+                    <td>
+                        <%- desaparecidos[i].nome %>
+                    </td>
+                    <td>
+                        <%- desaparecidos[i].datanasc %>
+                    </td>
+                    <td>
+                        <%- desaparecidos[i].dataultimo %>
+                    </td>
+                    <td>
+                        <%- desaparecidos[i].cidadedes %>/<%- desaparecidos[i].estadodes %>
+                    </td>
+                    <td><button onclick="window.location = '/page/<%- desaparecidos[i].iddesaparecido %>/delete/<%- desaparecidos[i].usuario_id %>'" class="btn btn-primary"
+                            style="background-color: red">Excluir</button></td>
+                </tr>
+                <%}%>
+            </table>
+            <hr>
+            <table class="table">
+                <h2>Desaparecidos inativos</h2>
+                <tr>
+                    <td>Nome</td>
+                    <td>Data Nascimento</td>
+                    <td>Data Desaparecimento</td>
+                    <td>Cidade Desaparecimento</td>
+                    <td></td>
+                </tr>
+                <% for(let j = 0; j < desaparecidosInativos.length; j++){%>
+                <tr>
+                    <td>
+                        <%- desaparecidosInativos[j].nome %>
+                    </td>
+                    <td>
+                        <%- desaparecidosInativos[j].datanasc %>
+                    </td>
+                    <td>
+                        <%- desaparecidosInativos[j].dataultimo %>
+                    </td>
+                    <td>
+                        <%- desaparecidosInativos[j].cidadedes %>/<%- desaparecidosInativos[j].estadodes %>
+                    </td>
+                    <td><button onclick="window.location = '/page/<%- desaparecidosInativos[j].iddesaparecido %>/restaurar'" class="btn btn-primary"
+                            style="background-color: var(--bg-dark)">Restaurar</button></td>
+                </tr>
+                <%}%>
+            </table>
+        </div>
+    </div>
+</main>
